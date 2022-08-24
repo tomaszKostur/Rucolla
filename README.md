@@ -1,33 +1,34 @@
-# Rucolla - Rust Collabotation Tool
+# Rucolla - Rust Collaboration Tool
 ## This supposed to be my personal project for rust research
 ### What it should be?
- It should be collaboration tool, made in Rust, to share a virtual blackboard with other, remote co-workers.
- It's inspired by miro board, and any software for managing tasks mgmnt like jira.
+ It should be a collaboration tool, made in Rust. Implementation of a virtual blackboard, possible to share with other, remote co-workers.
+ It's inspired by Miro board, and any software for managing tasks like Jira.
  The idea is to have that both functionalities in one tool.
  Advantages to aim:
- * better sharing, with live view of what other participants are doing right now (unlike jira)
- * better performance, cause miro gets very slow and unresponsive not even to have so much on it
+ * better sharing, with live view of what other participants are doing right now (unlike Jira)
+ * better performance, because Miro gets very slow and unresponsive quickly, if amount of content grows.
  * Better visually tracking of differences appeared on boards
-    - To consider is to adapt drawing schemas from kicad, or maybe some other test->drawing language, to be possible to use text diff tool to see the differences
+    - To consider is to adapt drawing schemas from KiCad, or maybe some other tekst->drawing language, to be possible to use text diff tool to see the differences
  * Versioning of boards (and backlog) by git
-  - Cause commits rules, and documentation rules. However I experienced a lot of resistance to people for review and versioning of documentation.
-  - My experience of versioning documents in M$ Word/jira/azure that's again really bad.
+    - There is already idea "Infrastructure as a code", why not "task management as a code"
+    - Commits rules, and documentation rules. However, I experienced a lot of resistance of people to review and version a documentation.
+    - My experience of versioning documents in M$ Word/jira/azure that's again terrible.
  * Many renderers
-  - **It have to be some browser renderer**. I don't know yet if its possible to adapt react, or js at all to make it. Maybe the only way to do it is webassebly.
-  - It should be some native renderer. Because of performance, and inefficiency or present frontend technologies. I'd start from piston.
+    - **It has to be some browser renderer**. I don't know yet if it's possible to adapt react, or JS at all, to make it. Maybe the only way to do it is WebAssembly.
+    - It should be some native renderer. Because of performance, and inefficiency of present frontend technologies (electron for eg. ). I'd start from piston.
 
 ## Stack to research
-* Piston, as a initial renderer
+* Piston, as an initial renderer
 * Tokio, and all web libraries inherited
 * React (browser renderer)
-* Webassembly (if React would not be helpful, or maybe another separate renderer?)
-* Redis, becouse the boards should be stored someware
+* WebAssembly (if React would not be helpful, or maybe another separate renderer?)
+* Redis, because the boards should be stored someway
 
 ### For later
-* Kubernetes, and all of its mess with scallability
+* Kubernetes, and all of its mess with scalability
 * MariaDB - If I really need relational DB for sth
 
 ## License
 All rights reserved, with compatibility for all licenses that this project will inherit from.
-At least until time, when I find out how to make it free and open source, but in the way I'd knew I want it to be.
-Who knows. Maybe someday if I made it work, someone will donate me, at least for a coffee.
+At least until time, when I find out how to make it free and open source, but in the way I'd know I want it to be.
+Who knows. Maybe someday, if I made it work, someone will donate to me, at least for a coffee.
