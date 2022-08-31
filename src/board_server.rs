@@ -1,5 +1,7 @@
+use bytes;
 use std::io;
 use std::net::SocketAddr;
+use tokio::io::AsyncReadExt;
 use tokio::io::Interest;
 use tokio::net::TcpListener;
 use tokio::net::TcpStream;
@@ -26,7 +28,7 @@ async fn serve_forever() {
     }
 }
 
-async fn serve_participant(data: TcpStream, participant: SocketAddr) {
+async fn serve_participant(mut data: TcpStream, participant: SocketAddr) {
     loop {
         let ready = data
             .ready(Interest::READABLE | Interest::WRITABLE)
@@ -34,17 +36,13 @@ async fn serve_participant(data: TcpStream, participant: SocketAddr) {
             .expect("Error check if data ready");
 
         if ready.is_readable() {
-            let mut buf = vec![0; 32];
-            match data.try_read(&mut buf) {
+            let mut buf = bytes::BytesMut::with_capacity(32);
+            match data.read_buf(&mut buf).await {
                 Ok(n) => {
                     if n == 0 {
                         break;
                     }
                     println!("Readed {:?} bytes from {:?}, {:?}", n, participant, buf);
-                }
-                Err(ref e) if e.kind() == io::ErrorKind::WouldBlock => {
-                    // TODO: Read about this WouldBlock error
-                    continue;
                 }
                 Err(e) => {
                     panic!("Read errors not implemented. The error: {:?}", e);
