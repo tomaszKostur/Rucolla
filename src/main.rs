@@ -1,7 +1,8 @@
-mod blackboard_items;
+use blackboard_lib::blackboard;
 
 fn main() {
     println!("Hello Rucolla");
+    println!("Somenote: {:?}", blackboard::new_note());
 }
 
 #[cfg(test)]
