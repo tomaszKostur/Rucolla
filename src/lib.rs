@@ -1,5 +1,6 @@
 use core::fmt::Debug;
 
+#[allow(dead_code)]
 pub mod blackboard {
 
     use std::str::FromStr;
@@ -8,34 +9,40 @@ pub mod blackboard {
     #[derive(Debug)]
     pub struct StickyNote {
         pub message: String,
-        placement: Point,
-        representation: Rectangle
+        pub placement: Point,
+        pub representation: Rectangle,
     }
 
-    impl Pinnable for StickyNote{}
+    impl Pinnable for StickyNote {}
 
     #[derive(Debug)]
-    struct Rectangle {
-        dx: usize,
-        dy: usize
+    pub struct Rectangle {
+        pub dx: usize,
+        pub dy: usize,
     }
-    #[derive(Debug)]
-    struct Point {
-        x: isize,
-        y: isize
+    #[derive(Debug, Clone)]
+    pub struct Point {
+        pub x: isize,
+        pub y: isize,
     }
 
     pub fn new_note() -> StickyNote {
-        StickyNote { message: String::from_str("Sticky note!").unwrap(), placement: Point{x:0, y:0}, representation: Rectangle { dx: 10, dy: 10 } }
+        StickyNote {
+            message: String::from_str("Sticky note!").unwrap(),
+            placement: Point { x: 0, y: 0 },
+            representation: Rectangle { dx: 100, dy: 100 },
+        }
     }
 
-
+    impl StickyNote {
+        pub fn change_pos(&mut self, dx: isize, dy: isize) {
+            self.placement.x += dx;
+            self.placement.y += dy;
+        }
+    }
 }
 
-
-
-trait Pinnable: Debug {
-}
+trait Pinnable: Debug {}
 
 #[cfg(test)]
 mod tests {
@@ -49,7 +56,7 @@ mod tests {
         let item1 = Box::new(blackboard::new_note());
         let item2 = Box::new(blackboard::new_note());
         let item3 = Box::new(blackboard::new_note());
-        let board: Vec::<Box<dyn Pinnable>> = vec![item1, item2, item3];
+        let board: Vec<Box<dyn Pinnable>> = vec![item1, item2, item3];
         println!("The board is: {:?}", board);
     }
 }
